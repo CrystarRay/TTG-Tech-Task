@@ -210,7 +210,8 @@ class ContactInformationFragment : Fragment() {
         // This is a placeholder for the Firestore API call
     }
 }
-```The `ContactInformationFragment` represents the final phase in the lottery entry process. We already have the ticket amount and date passed from the last fragment.
+```
+The `ContactInformationFragment` represents the final phase in the lottery entry process. We already have the ticket amount and date passed from the last fragment.
 
 This fragment's primary role is to collect the user's full name, phone number, and email address. Once the user hits the 'Enter' button, it triggers a series of actions:
 
