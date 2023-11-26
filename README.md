@@ -141,7 +141,7 @@ The user must select dates to move to the next fragment, ensuring a logical flow
 
 
 ## Contact Information Fragment Implementation
-I am assuming we have a final step to let the user enter the contect information and then we can save there data into database to confirm there lottery enter.
+I am assuming we have a final step to let the user enter the contact information, and then we can save their data into the database to confirm their lottery entry.
 
 
 #### Implementation Details
@@ -192,7 +192,7 @@ class ContactInformationFragment : Fragment() {
                     "showtimes" to showtimes
                 )
 
-                // Save to Firestore
+                // Save to Firestore: This is an Android build-in API; we just need to call it
                 saveToFirestore(userDetails)
             }
         }
@@ -205,10 +205,6 @@ class ContactInformationFragment : Fragment() {
         return fullName.isNotEmpty() && phoneNumber.isNotEmpty() && email.isNotEmpty()
     }
 
-    private fun saveToFirestore(userDetails: HashMap<String, Any>) {
-        // Implement Firestore saving logic
-        // This is a placeholder for the Firestore API call
-    }
 }
 ```
 The `ContactInformationFragment` represents the final phase in the lottery entry process. We already have the ticket amount and date passed from the last fragment.
@@ -218,3 +214,11 @@ This fragment's primary role is to collect the user's full name, phone number, a
 1. **Validation**: The app first checks to make sure that all the entered information is complete and valid.
 2. **Data Preparation**: The user's contact information, along with their ticket count and selected showtimes, are compiled into a `HashMap`. This structure is efficient for organizing the diverse set of data points.
 3. **Firestore Integration**: The collected data is then saved to Firestore. This step involves calling the Firestore API, where each user's details are securely stored in a unique data record.
+![image](https://github.com/CrystarRay/TTG-Tech-Task/assets/126846127/c8aeed0e-4c72-4907-8373-10b8c0227ed6)
+the image shows a sample database that will be created based on different users.
+
+## Summary and future implementation
+In the initial phase of the application, users interact with the  `ShowDetailActivity` where they are presented with the option to enter the lottery by selecting either one or two tickets. This selection is facilitated through Android's Fragment navigation,  which transitions to the ShowtimeSelectionFragment. After that, the number of tickets chosen dictates the number of showtimes that can be selected. When two tickets are chosen, users are presented with the opportunity to select two different dates, doubling their total ticket count to four. The fragment includes error handling to ensure at least one showtime is selected.
+
+The final stage of the process is the ContactInformationFragment, where users are required to fill in essential details such as email, phone number, and name. This step incorporates error handling to ensure all fields are completed before proceeding. Upon successful validation, user data, including their selected showtimes and contact information, is saved to the Firestore database under their unique user ID.
+In the future we can implement a server-side script that retrieves all participant IDs at the designated time, conducts a random draw, and notifies the winners.
