@@ -1,5 +1,5 @@
 # TTG-Tech-Task
-I am going to use android native Kotlin to implement this task.
+I am going to use the Android native programming language **Kotlin** to simulate and implement this task. And we use **Firebase** API- firestore database to save the data.
 ## Authentication and Interface Overview
 Before diving into the specifics of our application, it's crucial to address the initial authentication process. We utilize **Firebase** for user authentication, which seamlessly integrates with our Firestore database. The unique `UserID` plays a pivotal role in this process, although its creation isn't immediately necessary.
 
@@ -79,7 +79,7 @@ class TicketSelectionFragment : Fragment() {
 
 ```
 In the `ShowtimeSelectionFragment`, we have defined the behavior for dynamically creating showtime pickers based on the number of tickets selected. By utilizing the Fragment's dynamic nature, this fragment adapts to display the appropriate number of showtime pickers. Upon selecting showtimes and clicking the 'Next' button, a transaction is initiated that replaces the current view in the fragment_container with an instance of ContactInformationFragment. This transaction is added to the back stack, allowing the user to return to the previous state by pressing the back button, thus providing a seamless and intuitive navigation experience within the app.
-We also pass the value to the next fragment if the user chooses one ticket or two tickets; the next fragment receives one or two.
+Furthermore, the `ShowtimeSelectionFragment` is designed to be responsive to user choices. It intelligently passes the number of tickets selected — either one or two — to the next fragment in the journey, `ContactInformationFragment`. 
 
 ## Showtime Selection Fragment Implementation
 
@@ -129,11 +129,19 @@ class ShowtimeSelectionFragment : Fragment() {
 
 
 ```
-For `ShowtimeSelectionFragment`, we've implemented a dynamic UI that adapts to the number of tickets selected by the user. For each ticket, a showtime picker is dynamically created and added to the view. When the user selects showtimes and presses the 'Next' button, the fragment initiates a transition to the ContactInformationFragment. This transition is smooth and seamless, as it uses Android Jetpack's Fragment library to replace the current view in the fragment_container with the new fragment. The transaction is also added to the back stack.
+For `ShowtimeSelectionFragment`, When the user selects showtimes and presses the 'Next' button, the fragment initiates a transition to the ContactInformationFragment. As it uses Android Jetpack's Fragment library to replace the current view in the fragment_container with the new fragment. The transaction is also added to the back stack.In the `ShowtimeSelectionFragment`, the user's choices are key:
+
+1. **Selecting Showtimes**: The user picks showtimes based on how many tickets they chose. For example, if two tickets were selected, they'll pick two showtimes.
+
+2. **Calculating Total Tickets**: The app calculates the total tickets. If the user picks two different times for two tickets, that's 4 tickets in total (2 for each time).
+
+3. **Passing Data to Next Fragment**: This data - the number of tickets and their showtimes - is then sent to the `ContactInformationFragment`. This step is vital for saving the user's choices in the database.
+
+The user must select dates to move to the next fragment, ensuring a logical flow in the app's ticket booking process.
 
 
 ## Contact Information Fragment Implementation
-
+I am assuming we have a final step to let the user enter the contect information and then we can save there data into database to confirm there lottery enter.
 
 
 #### Implementation Details
@@ -194,7 +202,6 @@ class ContactInformationFragment : Fragment() {
 
     private fun validateInput(fullName: String, phoneNumber: String, email: String): Boolean {
         // Add validation logic for fullName, phoneNumber, and email
-        // For simplicity, let's just check they are not empty
         return fullName.isNotEmpty() && phoneNumber.isNotEmpty() && email.isNotEmpty()
     }
 
@@ -203,5 +210,10 @@ class ContactInformationFragment : Fragment() {
         // This is a placeholder for the Firestore API call
     }
 }
-```
-In the `ContactInformationFragment`, the final step of the lottery entry process is implemented. This fragment gathers the user's contact information and their previously selected showtimes. Once the user fills out their contact details and presses the 'Enter' button, the data is validated and then saved to Firestore. This fragment is crucial for completing the entry process, ensuring that the user's data is correctly captured and stored, thereby facilitating a smooth completion of the lottery entry and providing a seamless user experience.
+```The `ContactInformationFragment` represents the final phase in the lottery entry process. We already have the ticket amount and date passed from the last fragment.
+
+This fragment's primary role is to collect the user's full name, phone number, and email address. Once the user hits the 'Enter' button, it triggers a series of actions:
+
+1. **Validation**: The app first checks to make sure that all the entered information is complete and valid.
+2. **Data Preparation**: The user's contact information, along with their ticket count and selected showtimes, are compiled into a `HashMap`. This structure is efficient for organizing the diverse set of data points.
+3. **Firestore Integration**: The collected data is then saved to Firestore. This step involves calling the Firestore API, where each user's details are securely stored in a unique data record.
