@@ -1,4 +1,7 @@
 # TTG-Tech-Task
+Candidate Name: Chenrui Zhang(Ray)
+Email: chenrui15129@outlook.com
+
 I am going to use the Android native programming language **Kotlin** to simulate and implement this task. And we use **Firebase** API- firestore database to save the data.
 ## Authentication and Interface Overview
 Before diving into the specifics of our application, it's crucial to address the initial authentication process. We utilize **Firebase** for user authentication, which seamlessly integrates with our Firestore database. The unique `UserID` plays a pivotal role in this process, although its creation isn't immediately necessary.
