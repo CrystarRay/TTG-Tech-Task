@@ -50,7 +50,6 @@ The user interface for ticket selection is designed for straightforward interact
 
 ```kotlin
 class TicketSelectionFragment : Fragment() {
-    // Companion object remains unchanged
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val view = inflater.inflate(R.layout.fragment_ticket_selection, container, false)
@@ -94,7 +93,6 @@ Following ticket selection, the ShowtimeSelectionFragment allows users to pick a
 
 ```kotlin
 class ShowtimeSelectionFragment : Fragment() {
-    // Existing factory method remains unchanged
 
     private var ticketCount: Int = 1
 
